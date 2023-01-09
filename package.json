@@ -1,8 +1,9 @@
 {
-  "name": "@tweetback/tweetback",
-  "version": "1.0.0",
+  "name": "@jakejarvis/tweets",
   "private": true,
-  "description": "Take ownership of your Twitter data and host your own Twitter archive.",
+  "version": "1.0.0",
+  "homepage": "https://tweets.jarv.is/",
+  "repository": "jakejarvis/tweets",
   "scripts": {
     "clean": "rm -rf .cache",
     "import": "node database/import-from-archive.js",
@@ -11,16 +12,15 @@
     "build": "npx @11ty/eleventy --quiet",
     "start": "npx @11ty/eleventy --quiet --serve"
   },
-  "keywords": [],
   "contributors": [
+    "Jake Jarvis <jake@jarv.is> (https://jarv.is/)",
     "Zach Leatherman <zachleatherman@gmail.com> (https://zachleat.com/)"
   ],
-  "license": "MIT",
   "devDependencies": {
-    "@11ty/eleventy": "2.0.0-canary.23",
+    "@11ty/eleventy": "2.0.0-canary.25",
     "@11ty/eleventy-fetch": "^3.0.0",
     "@11ty/eleventy-img": "^2.0.1",
-    "@tweetback/canonical": "^2.0.20",
+    "@tweetback/canonical": "^2.0.28",
     "country-emoji": "^1.5.6",
     "dotenv": "^16.0.3",
     "emoji-regex": "^10.2.1",
@@ -29,7 +29,6 @@
     "numeral": "^2.0.6",
     "pagefind": "^0.10.6",
     "parse-domain": "^5.0.0",
-    "sentiment": "^5.0.2",
     "sqlite3": "^5.1.4",
     "swearjar": "^0.2.0",
     "twitter-lite": "^1.1.0"

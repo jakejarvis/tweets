@@ -10,7 +10,7 @@ class Popular extends Twitter {
 
 	async render(data) {
 		let tweets = await dataSource.getAllTweets();
-		let tweetHtml = await Promise.all(this.getMostPopularTweets(tweets).map(tweet => this.renderTweet(tweet, {showPopularity: true, showSentiment: true})));
+		let tweetHtml = await Promise.all(this.getMostPopularTweets(tweets).map(tweet => this.renderTweet(tweet)));
 
 		return `<h2>Popular Tweets</h2>
 		<p>A list of popular tweets by retweets and favorites.</p>

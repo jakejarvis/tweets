@@ -4,7 +4,7 @@ class Index extends Twitter {
 	data() {
 		return {
 			layout: "layout.11ty.js",
-      permalink: "404.html"
+			permalink: "404.html"
 		};
 	}
 

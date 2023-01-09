@@ -1,5 +1,5 @@
 node_modules/
-.cache
-_site
+docs/
+_site/
+.cache/
 .env
-package-lock.json

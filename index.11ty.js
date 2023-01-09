@@ -249,7 +249,7 @@ class Index extends Twitter {
 				return b.date - a.date;
 			}).slice(0, 15);
 		let recentTweetsHtml = await Promise.all(mostRecentTweets.map(tweet => this.renderTweet(tweet)));
-		let mostPopularTweetsHtml = await Promise.all(this.getMostPopularTweets(tweets).slice(0, 6).map(tweet => this.renderTweet(tweet, { showPopularity: true })));
+		let mostPopularTweetsHtml = await Promise.all(this.getMostPopularTweets(tweets).slice(0, 6).map(tweet => this.renderTweet(tweet)));
 
 		let links = this.getAllLinks(tweets);
 		let linksCount = links.length;
@@ -265,25 +265,23 @@ class Index extends Twitter {
 
 		<is-land on:visible on:save-data="false">
 			<template data-island>
-				<h2>Search Tweets:</h2>
-				<div class="tweets-search">
+				<h2 class="sr-only">Search Tweets:</h2>
+				<div>
 					<div id="search" class="tweets-search"></div>
-					<link href="/_pagefind/pagefind-ui.css" rel="stylesheet">
-					<script src="/_pagefind/pagefind-ui.js" onload="new PagefindUI({ element: '#search', showImages: false });"></script>
+					<script src="/_pagefind/pagefind-ui.js" onload="new PagefindUI({ element: '#search', showImages: false, resetStyles: false });"></script>
 				</div>
 			</template>
 		</is-land>
 
 		<div>
-			<h2><a href="/recent/">Recent:</a></h2>
-
+			<h2 class="tweets-section-title"><a href="/recent/">Recent</a></h2>
 			<ol class="tweets tweets-linear-list h-feed hfeed" id="tweets-recent-home">
 				${recentTweetsHtml.join("")}
 			</ol>
 		</div>
 
 		<div>
-			<h2><a href="/popular/">Popular:</a></h2>
+			<h2 class="tweets-section-title"><a href="/popular/">Popular</a></h2>
 			<ol class="tweets tweets-linear-list">
 				${mostPopularTweetsHtml.join("")}
 			</ol>
@@ -294,13 +292,13 @@ class Index extends Twitter {
 			<div class="lo-c">
 				<h3>Most Retweeted</h3>
 				<ol>
-					${this.getTopUsersToRetweets(tweets).slice(0, 10).map(user => `<li><a href="${twitterLink(`https://twitter.com/${user.username}`)}">${user.username}</a> ${user.count} retweet${user.count != 1 ? "s" : ""}</li>`).join("")}
+					${this.getTopUsersToRetweets(tweets).slice(0, 10).map(user => `<li><a href="${twitterLink(`https://twitter.com/${user.username}`)}" target="_blank" rel="noopener noreferrer">${user.username}</a> ${user.count} retweet${user.count != 1 ? "s" : ""}</li>`).join("")}
 				</ol>
 			</div>
 			<div class="lo-c">
 				<h3>Most Retweeted (Last 12 months)</h3>
 				<ol>
-					${this.getTopUsersToRetweets(last12MonthsTweets).slice(0, 10).map(user => `<li><a href="${twitterLink(`https://twitter.com/${user.username}`)}">${user.username}</a> ${user.count} retweet${user.count != 1 ? "s" : ""}</li>`).join("")}
+					${this.getTopUsersToRetweets(last12MonthsTweets).slice(0, 10).map(user => `<li><a href="${twitterLink(`https://twitter.com/${user.username}`)}" target="_blank" rel="noopener noreferrer">${user.username}</a> ${user.count} retweet${user.count != 1 ? "s" : ""}</li>`).join("")}
 				</ol>
 			</div>
 		</div>
@@ -311,13 +309,13 @@ class Index extends Twitter {
 			<div class="lo-c">
 				<h4>Most Replies To</h4>
 				<ol>
-					${this.getTopReplies(tweets).slice(0, 5).map(user => `<li><a href="${twitterLink(`https://twitter.com/${user.username}`)}">${user.username}</a> ${user.count} repl${user.count != 1 ? "ies" : "y"}</li>`).join("")}
+					${this.getTopReplies(tweets).slice(0, 5).map(user => `<li><a href="${twitterLink(`https://twitter.com/${user.username}`)}" target="_blank" rel="noopener noreferrer">${user.username}</a> ${user.count} repl${user.count != 1 ? "ies" : "y"}</li>`).join("")}
 				</ol>
 			</div>
 			<div class="lo-c">
 				<h4>Most Replies To (Last 12 months)</h4>
 				<ol>
-					${this.getTopReplies(last12MonthsTweets).slice(0, 5).map(user => `<li><a href="${twitterLink(`https://twitter.com/${user.username}`)}">${user.username}</a> ${user.count} repl${user.count != 1 ? "ies" : "y"}</li>`).join("")}
+					${this.getTopReplies(last12MonthsTweets).slice(0, 5).map(user => `<li><a href="${twitterLink(`https://twitter.com/${user.username}`)}" target="_blank" rel="noopener noreferrer">${user.username}</a> ${user.count} repl${user.count != 1 ? "ies" : "y"}</li>`).join("")}
 				</ol>
 			</div>
 		</div>
@@ -331,13 +329,13 @@ class Index extends Twitter {
 			<div class="lo-c">
 				<h4>Top Domains</h4>
 				<ol>
-					${this.getTopDomains(tweets).slice(0, 10).map(entry => `<li><a href="https://${entry.domain}">${entry.domain}</a> ${entry.count} tweets</li>`).join("")}
+					${this.getTopDomains(tweets).slice(0, 10).map(entry => `<li><a href="https://${entry.domain}" target="_blank" rel="noopener noreferrer">${entry.domain}</a> ${entry.count} tweets</li>`).join("")}
 				</ol>
 			</div>
 			<div class="lo-c">
 				<h4>Top Hosts</h4>
 				<ol>
-					${this.getTopHosts(tweets).slice(0, 10).map(entry => `<li><a href="https://${entry.host}">${entry.host}</a> ${entry.count} tweets</li>`).join("")}
+					${this.getTopHosts(tweets).slice(0, 10).map(entry => `<li><a href="https://${entry.host}" target="_blank" rel="noopener noreferrer">${entry.host}</a> ${entry.count} tweets</li>`).join("")}
 				</ol>
 			</div>
 		</div>
@@ -361,7 +359,7 @@ class Index extends Twitter {
 		<p><em>${this.renderNumber(swearCount)} swear words on ${this.renderNumber(tweetSwearCount)} tweets (${this.renderPercentage(tweetSwearCount, noRetweetsTweetCount)} of all tweets***)</em></p>
 		<p>***: does not include retweets</p>
 
-		<template id="rendered-twitter-link"><a href="/1234567890123456789/">twitter link</a></template>
+		<template id="rendered-twitter-link"><a href="/1234567890123456789/" target="_blank" rel="noopener noreferrer">twitter link</a></template>
 `;
 		// <h3>Before 2012, it was not possible to tell the difference between a mention and reply. This happened ${this.renderNumber(ambiguousReplyMentionCount)} times (${this.renderPercentage(ambiguousReplyMentionCount, tweetCount)})</h3>
 

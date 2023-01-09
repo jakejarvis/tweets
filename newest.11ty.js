@@ -20,7 +20,7 @@ class NewestTweet extends Twitter {
 
 	async render(data) {
 		// returns promise
-		return await this.renderTweetThread(data.tweet, { hidePermalink: false });
+		return await this.renderTweetThread(data.tweet);
 	}
 }
 

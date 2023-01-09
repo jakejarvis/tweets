@@ -30,7 +30,7 @@ module.exports = async function(data) {
 		</ul>`;
 	}
 
-	let meta_description = `A read-only indieweb self-hosted archive of${ data.pagination && data.pagination.hrefs && data.pagination.hrefs.length ? ` all ${data.pagination.hrefs.length} of` : ""} ${data.metadata.username}’s tweets.`;
+	let meta_description = `A read-only indieweb self-hosted archive of${ data.pagination && data.pagination.hrefs && data.pagination.hrefs.length ? ` all ${data.pagination.hrefs.length} of` : ""} @${data.metadata.username}’s tweets.`;
 	if (data.page.fileSlug === "tweet-pages" && data.tweet && data.tweet.full_text) {
 		// note that data.tweet.full_text is already HTML-escaped
 		meta_description = data.tweet.full_text.replace(/\s+/g, " ");
@@ -41,8 +41,11 @@ module.exports = async function(data) {
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>${data.metadata.username}’s Twitter Archive${titleTweetNumberStr}</title>
+		<title>@${data.metadata.username}’s Twitter Archive${titleTweetNumberStr}</title>
 		<meta name="description" content="${meta_description}" />
+		${!data.metadata.allowIndexing ? `
+			<meta name="robots" content="noindex, nofollow">
+			` : ""}
 
 		<link rel="profile" href="https://microformats.org/profile/hatom">
 		<link rel="stylesheet" href="/assets/style.css">
@@ -53,12 +56,18 @@ module.exports = async function(data) {
 			<link rel="canonical" href="/${data.tweet.id_str}/">
 			<meta http-equiv="refresh" content="0; url=/${data.tweet.id_str}/">
 			` : ""}
+
+		${data.metadata.fathomSiteId ? `
+			<script src="https://cdn.usefathom.com/script.js" data-site="${data.metadata.fathomSiteId}" data-honor-dnt="true" defer></script>
+			` : ""}
 	</head>
 	<body>
 		<header>
-			<h1 class="tweets-title"><a href="/"><img src="${metadata.avatar}" width="52" height="52" alt="${data.metadata.username}’s avatar" class="tweet-avatar">${data.metadata.username}’s Twitter Archive</a>${titleTweetNumberStr}</h1>
+			<h1 class="tweets-title"><a href="/"><img src="${metadata.avatar}" width="52" height="52" alt="@${data.metadata.username}’s avatar" class="tweet-avatar">@${data.metadata.username}’s Twitter Archive</a>${titleTweetNumberStr}</h1>
 			${!data.hideHeaderTweetsLink ? `<ul class="tweets-nav">
-				<li><a rel="home" href="${data.metadata.homeUrl}">← ${data.metadata.homeLabel}</a></li>
+				${data.metadata.homeUrl ? `<li><a href="${data.metadata.homeUrl}" target="_blank" rel="me noopener">🏠 ${data.metadata.homeLabel}</a></li>` : ""}
+				${data.metadata.mastodonUrl ? `<li><a href="${data.metadata.mastodonUrl}" target="_blank" rel="me noopener">🦣 Mastodon</a></li>` : ""}
+				${data.metadata.githubUrl ? `<li><a href="${data.metadata.githubUrl}" target="_blank" rel="noopener noreferrer">💾 GitHub</a></li>` : ""}
 			</ul>`: ""}
 			${navHtml}
 		</header>
@@ -66,7 +75,7 @@ module.exports = async function(data) {
 			${data.content}
 		</main>
 		<footer>
-			<p>An open source project from <a href="https://github.com/tweetback">tweetback</a>.</p>
+			<p>An open source project from <a href="https://github.com/tweetback" target="_blank" rel="noopener noreferrer">tweetback</a>.</p>
 		</footer>
 	</body>
 </html>`;

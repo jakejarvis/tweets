@@ -16,10 +16,10 @@ class Recent extends Twitter {
 
 	async render(data) {
 		let tweets = await dataSource.getAllTweets();
-		let tweetHtml = await Promise.all(this.getRecentTweets(tweets).map(tweet => this.renderTweet(tweet, {showSentiment: true})));
+		let tweetHtml = await Promise.all(this.getRecentTweets(tweets).map(tweet => this.renderTweet(tweet)));
 
 		return `<h2>Most Recent 40 Tweets</h2>
-		<p>Not including replies or retweets or mentions.</p>
+		<p>Not including replies, retweets, or mentions.</p>
 
 		<h3>Tweets</h3>
 		<ol class="tweets tweets-linear-list h-feed hfeed">

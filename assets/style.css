@@ -1,27 +1,50 @@
-* {
+:root {
+	--font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	--text: rgb(232, 230, 227);
+	--background: rgb(24, 24, 24);
+	--primary: rgb(136, 199, 255);
+	--primary-2: rgb(82, 126, 165);
+	--primary-3: rgb(78, 156, 224);
+	--grey: rgb(68, 68, 68);
+	--grey-2: rgb(150, 150, 150);
+	--grey-3: rgb(209, 209, 209);
+	--grey-4: rgb(31, 31, 31);
+	--red: rgb(227, 57, 109);
+	--red-2: rgb(240, 88, 91);
+	--green: rgb(46, 100, 70);
+	--green-2: rgb(22, 183, 95);
+}
+*,
+*::before,
+*::after {
 	box-sizing: border-box;
 }
 html {
 	height: 100%;
+	color-scheme: dark;
 }
 body {
 	max-width: 60em;
 	min-height: 100%;
-	font-family: system-ui, sans-serif;
+	font-size: 16px;
+	font-family: var(--font-family);
+	color: var(--text);
+	background-color: var(--background);
 	margin: 0 auto;
-	padding: .5em;
+	padding: 0.5em;
 }
 footer {
 	font-size: 0.875em; /* 14px /16 */
 	margin-top: 1em;
-	border-top: 1px solid #eee;
+	border-top: 1px solid var(--grey);
 	padding: 1em 0 0;
 	font-style: italic;
 }
 :link,
 :visited {
-	color: #1C4A1D;
-	text-decoration-color: #17bf63;
+	color: var(--primary);
+	text-decoration: underline;
+	text-decoration-color: var(--primary-2);
 }
 .sr-only {
 	position: absolute !important;
@@ -44,30 +67,30 @@ button {
 
 /* Flex lib */
 .lo {
-  /* The custom properties should not inherit from parent layouts */
-  --lo-stackpoint: initial;
-  --lo-margin-h: 0;
-  --lo-margin-v: 0;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0;
-  margin-top: calc(-1 * var(--lo-margin-v, 0));
-  margin-left: calc(-1 * var(--lo-margin-h, 0));
+	/* The custom properties should not inherit from parent layouts */
+	--lo-stackpoint: initial;
+	--lo-margin-h: 0;
+	--lo-margin-v: 0;
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0;
+	margin-top: calc(-1 * var(--lo-margin-v, 0));
+	margin-left: calc(-1 * var(--lo-margin-h, 0));
 }
 .lo-c {
-  /* if a margin is in play, account for this in our stackpoint calculations */
-  /* notably this will also work if a stackpoint is not used. */
-  --lo-margin-mod: calc( var(--lo-stackpoint, -1 * var(--lo-margin-h, 0px)) - var(--lo-stackpoint, 0px) + var(--lo-margin-h, 0px) );
-  --lo-stackpoint-calc: calc( ( var(--lo-stackpoint, 100%) - 100% + var(--lo-margin-mod, 0px) ) * 999);
+	/* if a margin is in play, account for this in our stackpoint calculations */
+	/* notably this will also work if a stackpoint is not used. */
+	--lo-margin-mod: calc( var(--lo-stackpoint, -1 * var(--lo-margin-h, 0px)) - var(--lo-stackpoint, 0px) + var(--lo-margin-h, 0px) );
+	--lo-stackpoint-calc: calc( ( var(--lo-stackpoint, 100%) - 100% + var(--lo-margin-mod, 0px) ) * 999);
 
-  flex-grow: 1;
-  flex-basis: var(--lo-basis, var(--lo-stackpoint-calc, auto));
-  margin: 0;
-  margin-top: var(--lo-margin-v, 0);
-  margin-left: var(--lo-margin-h, 0);
+	flex-grow: 1;
+	flex-basis: var(--lo-basis, var(--lo-stackpoint-calc, auto));
+	margin: 0;
+	margin-top: var(--lo-margin-v, 0);
+	margin-left: var(--lo-margin-h, 0);
 }
 .lo-inline > .lo-c {
-  flex-grow: 0;
+	flex-grow: 0;
 }
 
 .lo-cols {
@@ -81,11 +104,15 @@ button {
 /* Page level stuff */
 .tweets-title {
 	display: inline-block;
-	font-size: 1em;
+	font-size: 1.2em;
 	line-height: 1.6875; /* 27px /16 */
 	font-weight: 600;
 	margin: 0;
 	margin-right: 1.5em;
+}
+.tweets-title :link,
+.tweets-title :visited {
+	color: var(--text);
 }
 .tweets-nav {
 	display: inline-block;
@@ -95,6 +122,7 @@ button {
 }
 .tweets-nav li {
 	display: inline-block;
+	margin-left: 0.75em;
 }
 @media (min-width: 48em) { /* 768px */
 	.tweets-nav {
@@ -103,10 +131,10 @@ button {
 }
 .tweets-primary-count {
 	font-size: 4em;
-	margin: 2em 0 1em;
-	padding: 0 0 2em;
+	margin: 0.75em 0 0.5em;
+	padding: 0 0 0.75em;
 	text-align: center;
-	border-bottom: 2px solid #eee;
+	border-bottom: 2px solid var(--grey);
 	font-weight: 400;
 }
 .tweets-primary-count-num {
@@ -116,16 +144,24 @@ button {
 /* Tweet list */
 .tweets {
 	max-width: 40em;
-	margin: 4em auto;
+	margin: 2em auto 4em;
 	padding: 0;
 }
 .tweets .tweets-replies {
 	padding-left: 1em;
-	border-left: 2px solid rgba(0,0,0,0.1);
-	margin-left: -.75em;
+	border-left: 2px solid var(--grey-3);
+	margin-left: -0.75em;
 }
 .tweets .tweets-replies:empty {
 	display: none;
+}
+.tweets-section-title {
+	font-size: 2em;
+	text-align: center;
+}
+.tweets-section-title :link,
+.tweets-section-title :visited {
+	color: var(--text);
 }
 /* Used on tweet-pages only */
 .tweets-thread {
@@ -133,14 +169,14 @@ button {
 	margin-bottom: 15vh;
 }
 .tweets-linear-list .tweet {
-	margin-bottom: 3.5rem;
-	padding-bottom: 3.5rem;
-	border-bottom: 1px solid #ccc;
+	margin-bottom: 2rem;
+	padding-bottom: 2rem;
+	border-bottom: 1px solid var(--grey);
 }
 
 /* Individual tweet */
 .is_retweet .tweet-text {
-	opacity: .6;
+	opacity: 0.6;
 	font-style: italic;
 }
 .tweet-text {
@@ -158,68 +194,64 @@ button {
 .tweet-username,
 .tweet-username:visited {
 	color: inherit;
-	font-size: 0.9545454545455em; /* 21px /22 */
+	font-size: 0.95em; /* 21px /22 */
 }
 .tweet-pretext {
 	display: block;
 	font-style: italic;
 	font-size: 1rem; /* 16px /16 */
-	padding: 0 0 .4em;
+	padding: 0 0 0.4em;
 }
 .tweet-pretext,
 .tweet-pretext:visited {
-	color: #555;
+	color: var(--grey-2);
 }
 .tweet-metadata {
 	display: block;
-	margin-top: .5em;
+	margin-top: 0.5em;
 }
 .tweet-metadata,
 .tweet-metadata :link,
 .tweet-metadata :visited {
-	color: #757575;
+	color: var(--grey-2);
 }
 
 /* Individual tweet */
 .tweet {
-	font-size: 1.625em; /* 26px /16 */
+	font-size: 1.375em; /* 22px /16 */
 	margin: 0 0 3.5rem;
 	padding: 0;
 	list-style: none;
 }
-.tweet.is_reply,
-.tweet.is_retweet {
-	font-size: 1.375em; /* 22px /16 */
-}
 .tweet-next .tweet-text,
 .tweet-previous .tweet-text {
-	color: #777;
+	color: var(--grey-2);
 }
 .tweet-next .tag-favorite,
 .tweet-next .tag-retweet,
 .tweet-previous .tag-favorite,
 .tweet-previous .tag-retweet {
-	opacity: .5;
+	opacity: 0.5;
 }
 
 /* Avatar */
 .tweet-avatar {
 	width: 27px;
 	height: 27px;
-	margin-bottom: -3px;
 	border-radius: 50%;
 }
 h1 .tweet-avatar {
 	vertical-align: text-bottom;
-	margin-right: 5px;
+	margin-right: 0.375em;
 }
 
 /* Tweet Media */
 .tweet-medias {
 	display: flex;
-	margin: 1em 0 0;
+	margin: 1em 0;
 	max-height: 10em;
-	gap: .5em;
+	gap: 0.5em;
+	justify-content: center;
 }
 .tweet-medias > a {
 	display: block;
@@ -227,14 +259,14 @@ h1 .tweet-avatar {
 	flex-grow: 0.5;
 }
 .tweet-media {
-	border-radius: .25em;
-	box-shadow: 0 0px 18px 3px rgb(0 0 0 / 40%);
+	border-radius: 0.25em;
+	box-shadow: 0 0px 18px 3px var(--grey-4);
 }
 img.tweet-media {
 	display: block;
 	width: 100%;
 	height: 100%;
-	border: 1px solid #ccc;
+	border: 2px solid var(--grey-4);
 }
 video.tweet-media {
 	max-width: 100%;
@@ -244,13 +276,13 @@ video.tweet-media {
 .tweet-media-load-error {
 	display: block;
 	border-top: 1px dashed;
-	margin: .5em 0;
-	padding-top: .5em;
-	color: #777;
+	margin: 0.5em 0;
+	padding-top: 0.5em;
+	color: var(--grey);
 }
 a[href]:focus .tweet-media-load-error,
 a[href]:hover .tweet-media-load-error {
-	color: #333;
+	color: var(--grey-2);
 }
 @supports (object-fit: cover) {
 	.tweet-media {
@@ -270,12 +302,12 @@ a[href]:hover .tweet-media-load-error {
 }
 .tweet-previous .tweet-media,
 .tweet-next .tweet-media {
-	opacity: .7;
+	opacity: 0.7;
 	max-height: 6em;
 	max-width: 12em;
 }
 .tweet-media:hover {
-	border-color: #999;
+	border-color: var(--primary-2);
 }
 .tweet-previous .tweet-media:hover,
 .tweet-next .tweet-media:hover {
@@ -289,14 +321,15 @@ img.tweet-media-og {
 /* Tags */
 .tag {
 	display: inline-block;
-	font-size: 0.8125rem; /* 13px /16 */
-	margin: 0 0 0 4px;
-	padding: 6px;
+	font-size: 0.9rem;
+	margin: 0 0 0 0.2em;
+	padding: 0.5em;
+	height: 27px;
 	white-space: nowrap;
 	text-decoration: none;
-	background-color: #999;
-	color: #fff;
-	border: 1px solid #999;
+	background-color: var(--grey);
+	color: var(--text);
+	border: 1px solid var(--grey);
 	border-radius: 0.4em;
 	font-weight: 600;
 	vertical-align: text-bottom;
@@ -304,61 +337,177 @@ img.tweet-media-og {
 }
 .tweet-metadata .tag:link,
 .tweet-metadata .tag:visited {
-	color: #fff;
+	color: var(--text);
 }
 .tag-lite {
 	border-color: transparent;
-	padding-left: 2px;
-	padding-right: 2px;
+	padding-left: 0.5em;
 	font-weight: 400;
 }
 .tag-icon {
-	display: inline-flex;
 	border: none;
 	padding: 0;
 	margin-bottom: 0;
-	border-radius: .6em;
+	border-radius: 0.6em;
 	overflow: hidden;
 }
+.tag-avatar {
+	padding: 0 0.2em 0 0;
+}
 .tag-naked {
-	background-color: #fff;
-	color: #757575;
+	background-color: var(--background);
+	color: var(--grey-2);
 }
 .tweet-metadata .tag-naked:link,
 .tweet-metadata .tag-naked:visited {
-	color: #757575;
+	color: var(--grey-2);
 }
 .tag:first-child,
 .tag + .tag {
 	margin-left: 0;
 }
 .tag-favorite {
-	background-color: #e0245e;
-	border-color: #e0245e;
+	background-color: var(--red);
+	border-color: var(--red-2);
 }
 .tag-retweet {
-	background-color: #397d58;
-	border-color: #397d58;
+	background-color: var(--green);
+	border-color: var(--green-2);
 }
 .tag-lite.tag-favorite,
 .tag-lite.tag-retweet {
-	background-color: #fff;
+	background-color: var(--background);
 	border-color: transparent;
 	font-weight: inherit;
 }
 .tag-lite.tag-favorite {
-	color: #e0245e;
+	color: var(--red-2);
 }
 .tag-lite.tag-retweet {
-	color: #096f37;
-}
-.tag-avatar {
-	padding: 0;
+	color: var(--green-2);
 }
 
 /* Search form */
 .tweets-search {
-	margin: 0 auto;
+	margin: 0 auto 1.25em;
 	max-width: 40rem; /* 640px /16 */
-	font-size: 1.25em; /* 20px /16 */
+}
+.pagefind-ui {
+	width: 100%;
+}
+.pagefind-ui__form {
+	position: relative;
+}
+.pagefind-ui__form:before {
+	background-color: var(--text);
+	width: 18px;
+	height: 18px;
+	top: 15px;
+	left: 15px;
+	content: "";
+	position: absolute;
+	display: block;
+	opacity: 0.7;
+	mask-image: url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.7549 11.255H11.9649L11.6849 10.985C12.6649 9.845 13.2549 8.365 13.2549 6.755C13.2549 3.165 10.3449 0.255005 6.75488 0.255005C3.16488 0.255005 0.254883 3.165 0.254883 6.755C0.254883 10.345 3.16488 13.255 6.75488 13.255C8.36488 13.255 9.84488 12.665 10.9849 11.685L11.2549 11.965V12.755L16.2549 17.745L17.7449 16.255L12.7549 11.255ZM6.75488 11.255C4.26488 11.255 2.25488 9.245 2.25488 6.755C2.25488 4.26501 4.26488 2.255 6.75488 2.255C9.24488 2.255 11.2549 4.26501 11.2549 6.755C11.2549 9.245 9.24488 11.255 6.75488 11.255Z' fill='%23000000'/%3E%3C/svg%3E%0A");
+	mask-size: 100%;
+	z-index: 9;
+	pointer-events: none;
+}
+.pagefind-ui__search-input {
+	height: 3rem;
+	padding: 0 0 0 2.75rem;
+	background-color: var(--grey-4);
+	border: 1px solid var(--grey);
+	border-radius: 0.4em;
+	position: relative;
+	appearance: none;
+	-webkit-appearance: none;
+	display: flex;
+	width: 100%;
+	box-sizing: border-box;
+	font-weight: 700;
+}
+.pagefind-ui__search-input::placeholder {
+	opacity: 0.5;
+}
+.pagefind-ui__drawer {
+	gap: 3.75rem;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	padding-bottom: 3.125rem;
+	margin-bottom: 3.125rem;
+	border-bottom: solid 2px var(--grey);
+}
+.pagefind-ui__hidden {
+	display: none;
+}
+.pagefind-ui__results-area {
+	min-width: min(25rem, 100%);
+	flex: 1000;
+	margin-top: 1.25rem;
+}
+.pagefind-ui__results {
+	padding: 0;
+	margin: 0;
+}
+.pagefind-ui__message {
+	box-sizing: content-box;
+	font-size: 0.925em;
+	display: flex;
+	align-items: center;
+	font-weight: 700;
+	margin-top: 0;
+}
+.pagefind-ui__button {
+	margin: 1.75em 0;
+	border: 1px solid var(--grey);
+	border-radius: 0.4em;
+	height: 3em;
+	padding: 0 0.75em;
+	color: var(--grey-3);
+	background: var(--grey-4);
+	width: 100%;
+	text-align: center;
+	font-weight: 700;
+	cursor: pointer;
+}
+.pagefind-ui__button:hover {
+	border-color: var(--grey-2);
+}
+.pagefind-ui__result {
+	list-style-type: none;
+	display: flex;
+	align-items: flex-start;
+	gap: min(2.5rem, 3%);
+	padding: 1.5rem 0;
+	border-bottom: solid 1px var(--grey);
+}
+.pagefind-ui__result-inner {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.pagefind-ui__result-title {
+	display: inline-block;
+	font-weight: 700;
+	font-size: 1.2em;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.pagefind-ui__result-excerpt {
+	display: inline-block;
+	font-weight: 400;
+	color: var(--grey-2);
+	line-height: 1.4;
+	margin: 0.25rem 0 0;
+	min-width: 15.625rem;
+}
+.pagefind-ui__loading {
+	color: var(--grey-3);
+	background-color: var(--grey-3);
+	border-radius: 0.4em;
+	opacity: 0.1;
+	pointer-events: none;
 }

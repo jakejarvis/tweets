@@ -1,9 +1,12 @@
 let data = {
-	username: "eleven_ty", // No leading @ here
-	homeLabel: "11ty.dev",
-	homeUrl: "https://www.11ty.dev/",
+	username: "jakejarvis", // No leading @ here
+	avatar: "/avatar.jpg",
+	homeLabel: "jarv.is",
+	homeUrl: "https://jarv.is/",
+	mastodonUrl: "https://fediverse.jarv.is/@jake",
+	githubUrl: "https://github.com/jakejarvis/tweets",
+	fathomSiteId: "PIUEIVIZ",
+	allowIndexing: false,
 };
-
-data.avatar = `https://v1.indieweb-avatar.11ty.dev/${encodeURIComponent(data.homeUrl)}/`;
 
 module.exports = data;

@@ -62,6 +62,7 @@ class DataSource {
 			obj.in_reply_to_user_id = json.in_reply_to_user_id;
 			obj.in_reply_to_user_id_str = json.in_reply_to_user_id;
 			obj.in_reply_to_screen_name = tweet.in_reply_to_screen_name; // use the db row instead of the json
+			obj.source = json.source || "";
 			obj.entities = json.entities || {};
 
 			if(json.entities && json.entities.urls) {

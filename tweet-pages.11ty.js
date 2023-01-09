@@ -19,7 +19,7 @@ class TweetToFile extends Twitter {
 	}
 
 	async render(data) {
-		return await this.renderTweetThread(data.tweet, { hidePermalink: true, showPopularity: true });
+		return await this.renderTweetThread(data.tweet, { hidePermalink: true });
 	}
 }
 
