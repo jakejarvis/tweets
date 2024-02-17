@@ -1,4 +1,4 @@
-# 🪦 [tweets.jarv.is](https://tweets.jarv.is/)
+# 🪦 [jarv.is/tweets](https://jarv.is/tweets/)
 
 [![Deploy site to Pages](https://github.com/jakejarvis/tweets/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/jakejarvis/tweets/actions/workflows/gh-pages.yml)
 
