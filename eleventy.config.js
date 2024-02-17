@@ -11,7 +11,6 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.addPassthroughCopy("img/");
 	eleventyConfig.addPassthroughCopy("video/");
 	eleventyConfig.addPassthroughCopy({
-		"public/CNAME": "CNAME", // github pages
 		"public/robots.txt": "robots.txt",
 		"public/favicon.ico": "favicon.ico",
 		"public/avatar.jpg": "avatar.jpg",
@@ -38,4 +37,8 @@ module.exports = function(eleventyConfig) {
 		console.log('[pagefind] Creating search index.');
 		execSync(`npx pagefind --source _site --glob \"[0-9]*/**/*.html\"`, { encoding: 'utf-8' });
 	});
+
+  return {
+    pathPrefix: "/tweets/"
+  }
 };
