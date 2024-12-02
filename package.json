@@ -29,7 +29,7 @@
     "numeral": "^2.0.6",
     "pagefind": "^0.10.6",
     "parse-domain": "^5.0.0",
-    "sqlite3": "^5.1.4",
+    "sqlite3": "^5.1.5",
     "swearjar": "^0.2.0",
     "twitter-lite": "^1.1.0"
   },
