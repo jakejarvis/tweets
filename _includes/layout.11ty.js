@@ -11,14 +11,14 @@ module.exports = async function(data) {
 
 	let navHtml = "";
 	if(data.page.fileSlug === "tweet-pages" || data.page.fileSlug === "newest") {
-		let newestHref = "/newest/";
+		let newestHref = "/newest";
 		let previousHref = data.pagination.previousPageHref;
 		let nextHref = data.pagination.nextPageHref;
 
 		if(data.page.fileSlug === "newest") {
 			newestHref = "";
 			previousHref = "";
-			nextHref = "/" + (await dataSource.getAllTweets()).sort((a, b) => b.date - a.date).slice(1, 2).map(tweet => tweet.id_str).join("") + "/";
+			nextHref = "/" + (await dataSource.getAllTweets()).sort((a, b) => b.date - a.date).slice(1, 2).map(tweet => tweet.id_str).join("");
 		} else if(data.page.fileSlug === "tweet-pages" && data.pagination.firstPageHref === data.page.url) {
 			newestHref = "";
 		}
@@ -53,17 +53,13 @@ module.exports = async function(data) {
 		<script src="/assets/is-land.js" type="module"></script>
 
 		${data.page.fileSlug === "newest" ? `
-			<link rel="canonical" href="/${data.tweet.id_str}/">
-			<meta http-equiv="refresh" content="0; url=/${data.tweet.id_str}/">
-			` : ""}
-
-		${data.metadata.fathomSiteId ? `
-			<script src="https://cdn.usefathom.com/script.js" data-site="${data.metadata.fathomSiteId}" data-honor-dnt="true" defer></script>
+			<link rel="canonical" href="/${data.tweet.id_str}">
+			<meta http-equiv="refresh" content="0; url=/${data.tweet.id_str}">
 			` : ""}
 	</head>
 	<body>
 		<header>
-			<h1 class="tweets-title"><a href="/"><img src="${metadata.avatar}" width="52" height="52" alt="@${data.metadata.username}’s avatar" class="tweet-avatar">@${data.metadata.username}’s Twitter Archive</a>${titleTweetNumberStr}</h1>
+			<h1 class="tweets-title"><a href="${metadata.baseUrl}"><img src="${metadata.avatar}" width="52" height="52" alt="@${data.metadata.username}’s avatar" class="tweet-avatar">@${data.metadata.username}’s Twitter Archive</a>${titleTweetNumberStr}</h1>
 			${!data.hideHeaderTweetsLink ? `<ul class="tweets-nav">
 				${data.metadata.homeUrl ? `<li><a href="${data.metadata.homeUrl}" target="_blank" rel="me noopener">🏠 ${data.metadata.homeLabel}</a></li>` : ""}
 				${data.metadata.mastodonUrl ? `<li><a href="${data.metadata.mastodonUrl}" target="_blank" rel="me noopener">🦣 Mastodon</a></li>` : ""}

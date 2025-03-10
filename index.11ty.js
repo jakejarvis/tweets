@@ -274,14 +274,14 @@ class Index extends Twitter {
 		</is-land>
 
 		<div>
-			<h2 class="tweets-section-title"><a href="/recent/">Recent</a></h2>
+			<h2 class="tweets-section-title"><a href="/recent">Recent</a></h2>
 			<ol class="tweets tweets-linear-list h-feed hfeed" id="tweets-recent-home">
 				${recentTweetsHtml.join("")}
 			</ol>
 		</div>
 
 		<div>
-			<h2 class="tweets-section-title"><a href="/popular/">Popular</a></h2>
+			<h2 class="tweets-section-title"><a href="/popular">Popular</a></h2>
 			<ol class="tweets tweets-linear-list">
 				${mostPopularTweetsHtml.join("")}
 			</ol>
@@ -359,7 +359,7 @@ class Index extends Twitter {
 		<p><em>${this.renderNumber(swearCount)} swear words on ${this.renderNumber(tweetSwearCount)} tweets (${this.renderPercentage(tweetSwearCount, noRetweetsTweetCount)} of all tweets***)</em></p>
 		<p>***: does not include retweets</p>
 
-		<template id="rendered-twitter-link"><a href="/1234567890123456789/" target="_blank" rel="noopener noreferrer">twitter link</a></template>
+		<template id="rendered-twitter-link"><a href="/1234567890123456789" target="_blank" rel="noopener noreferrer">twitter link</a></template>
 `;
 		// <h3>Before 2012, it was not possible to tell the difference between a mention and reply. This happened ${this.renderNumber(ambiguousReplyMentionCount)} times (${this.renderPercentage(ambiguousReplyMentionCount, tweetCount)})</h3>
 

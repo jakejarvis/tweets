@@ -189,7 +189,7 @@ class Twitter {
 			for(let mention of tweet.entities.user_mentions) {
 				textReplacements.set(mention.screen_name, {
 					regex: new RegExp(`@${mention.screen_name}`, "i"),
-					html: `<a href="${twitterLink(`https://twitter.com/${mention.screen_name}/`)}" class="tweet-username h-card" target="_blank" rel="noopener noreferrer">@<span class="p-nickname">${mention.screen_name}</span></a>`,
+					html: `<a href="${twitterLink(`https://twitter.com/${mention.screen_name}`)}" class="tweet-username h-card" target="_blank" rel="noopener noreferrer">@<span class="p-nickname">${mention.screen_name}</span></a>`,
 				});
 			}
 		}
@@ -296,18 +296,18 @@ class Twitter {
 		let shareCount = parseInt(tweet.retweet_count, 10) + (tweet.quote_count ? tweet.quote_count : 0);
 
     return `<li id="${tweet.id_str}" class="tweet h-entry${options.class ? ` ${options.class}` : ""}${this.isReply(tweet) && tweet.in_reply_to_screen_name !== metadata.username ? " is_reply " : ""}${this.isRetweet(tweet) ? " is_retweet" : ""}${this.isMention(tweet) ? " is_mention" : ""}" data-pagefind-index-attrs="id">
-		${this.isReply(tweet) ? `<a href="${tweet.in_reply_to_screen_name !== metadata.username ? twitterLink(`https://twitter.com/${tweet.in_reply_to_screen_name}/status/${tweet.in_reply_to_status_id_str}`) : `/${tweet.in_reply_to_status_id_str}/`}" class="tweet-pretext u-in-reply-to" target="_blank" rel="noopener noreferrer">…in reply to @${tweet.in_reply_to_screen_name}</a>` : ""}
+		${this.isReply(tweet) ? `<a href="${tweet.in_reply_to_screen_name !== metadata.username ? twitterLink(`https://twitter.com/${tweet.in_reply_to_screen_name}/status/${tweet.in_reply_to_status_id_str}`) : `/${tweet.in_reply_to_status_id_str}`}" class="tweet-pretext u-in-reply-to" target="_blank" rel="noopener noreferrer">…in reply to @${tweet.in_reply_to_screen_name}</a>` : ""}
 			<div class="tweet-text e-content"${options.attributes || ""}>${await this.renderFullText(tweet, options)}</div>
 			<span class="tweet-metadata">
-				${!options.hidePermalink ? `<a href="/${tweet.id_str}/" class="tag tag-naked">Permalink</a>` : ""}
+				${!options.hidePermalink ? `<a href="/${tweet.id_str}" class="tag tag-naked">Permalink</a>` : ""}
 				<a href="https://twitter.com/${metadata.username}/status/${tweet.id_str}" class="tag tag-icon u-url" target="_blank" rel="noopener noreferrer" data-pagefind-index-attrs="href"><span class="sr-only">On twitter.com </span><img src="${this.avatarUrl("https://twitter.com/")}" alt="Twitter logo" width="27" height="27"></a>
 				${!this.isReply(tweet) ? (this.isRetweet(tweet) ? `<span class="tag tag-retweet">Retweet</span>` : (this.isMention(tweet) ? `<span class="tag">Mention</span>` : "")) : ""}
-				${!this.isRetweet(tweet) ? `<a href="/" class="tag tag-naked tag-lite tag-avatar"><img src="${metadata.avatar}" width="52" height="52" alt="${metadata.username}’s avatar" class="tweet-avatar"></a>` : ""}
+				${!this.isRetweet(tweet) ? `<a href="${metadata.baseUrl}" class="tag tag-naked tag-lite tag-avatar"><img src="${metadata.avatar}" width="52" height="52" alt="${metadata.username}’s avatar" class="tweet-avatar"></a>` : ""}
 				${!this.isRetweet(tweet) ? `
 					${shareCount > 0 ? `<span class="tag tag-lite tag-retweet">♻️ ${this.renderNumber(shareCount)}<span class="sr-only"> Retweet${shareCount !== "1" ? "s" : ""}</span></span>` : ""}
 					${tweet.favorite_count > 0 ? `<span class="tag tag-lite tag-favorite">❤️ ${this.renderNumber(tweet.favorite_count)}<span class="sr-only"> Favorite${tweet.favorite_count !== "1" ? "s" : ""}</span></span>` : ""}
 				`.trim() : ""}
-				${tweet.date ? `<a href="/${tweet.id_str}/" title="${tweet.date.toString()}" class="tag tag-naked tag-lite"><time class="dt-published" datetime="${tweet.date.toISOString()}">${this.renderDate(tweet.date)}</time></a>` : ""}
+				${tweet.date ? `<a href="/${tweet.id_str}" title="${tweet.date.toString()}" class="tag tag-naked tag-lite"><time class="dt-published" datetime="${tweet.date.toISOString()}">${this.renderDate(tweet.date)}</time></a>` : ""}
 				${tweet.source ? `<span class="tag tag-naked tag-lite">${this.cleanupSource(tweet.source)}</span>` : ""}
 			</span>
 		</li>`;

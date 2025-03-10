@@ -13,7 +13,6 @@ class NewestTweet extends Twitter {
 				alias: "tweet"
 			},
 			layout: "layout.11ty.js",
-			permalink: "/newest/",
 			hideHeaderTweetsLink: true
 		};
 	}

@@ -13,7 +13,7 @@ class TweetToFile extends Twitter {
 			},
 			layout: "layout.11ty.js",
 			// permalink: false,
-			permalink: data => `/${data.tweet.id_str}/`,
+			permalink: data => `/${data.tweet.id_str}.html`,
 			hideHeaderTweetsLink: true
 		};
 	}

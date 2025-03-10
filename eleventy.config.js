@@ -11,8 +11,6 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.addPassthroughCopy("img/");
 	eleventyConfig.addPassthroughCopy("video/");
 	eleventyConfig.addPassthroughCopy({
-		"public/robots.txt": "robots.txt",
-		"public/favicon.ico": "favicon.ico",
 		"public/avatar.jpg": "avatar.jpg",
 	})
 	eleventyConfig.addPassthroughCopy({
@@ -32,10 +30,29 @@ module.exports = function(eleventyConfig) {
 
 	eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 
+	// Set global permalinks to resource.html style
+	eleventyConfig.addGlobalData("permalink", () => {
+		return (data) =>
+			`${data.page.filePathStem}.${data.page.outputFileExtension}`;
+	});
+
+	// Remove .html from `page.url` entries
+	eleventyConfig.addUrlTransform((page) => {
+		if (page.url.endsWith(".html")) {
+			return page.url.slice(0, -1 * ".html".length);
+		}
+	});
+
+	eleventyConfig.addUrlTransform((page) => {
+		if (page.url.length !== "/" && page.url.endsWith("/")) {
+			return page.url.slice(0, -1);
+		}
+	});
+
 	// pagefind search plugin
 	eleventyConfig.on('eleventy.after', () => {
 		console.log('[pagefind] Creating search index.');
-		execSync(`npx pagefind --source _site --glob \"[0-9]*/**/*.html\"`, { encoding: 'utf-8' });
+		execSync(`npx pagefind --source _site --glob \"[0-9]*.html\"`, { encoding: 'utf-8' });
 	});
 
   return {
